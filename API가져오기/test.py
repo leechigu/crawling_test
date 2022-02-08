@@ -1,3 +1,6 @@
+import urllib
+
+import requests
 from bs4 import BeautifulSoup
 from xml.etree.ElementTree import fromstring, ElementTree
 from elasticsearch import Elasticsearch, helpers
@@ -12,33 +15,27 @@ es = Elasticsearch(['13.125.221.150:9200'])
 docs = []
 j = 0
 
-for i in range(3):
-    iStart = (i) * 1000 + 1
-    iEnd = (i+1) * 1000
-    url = 'http://openapi.seoul.go.kr:8088/474a76586572727733385465625659/json/bikeList/' + str(iStart) + '/' + str(iEnd) + '/'
-    response = urlopen(url)
-    json_api = response.read().decode("utf-8")
-    json_file = json.loads(json_api)
-    df= json_file['rentBikeStatus']['row']
-    for temp in df :
-        rackTotCnt = int(temp['rackTotCnt'])
-        parkingBikeTotCnt = int(temp['parkingBikeTotCnt'])
-        shared = int(temp['shared'])
-        stationName = temp['stationName']
-        stationLat = temp['stationLatitude']
-        stationLon = temp['stationLongitude']
-        stationId = temp['stationId']
-        n_json ={
-            "_index": "seoul_bike",
-            "_source" :{
-                "stationName" : stationName,
-                "rackTotCnt" : rackTotCnt,
-                "parkingBikeTotCnt" : parkingBikeTotCnt,
-                "stationLat" : stationLat,
-                "stationLon" : stationLon,
-                "stationId" : stationId
-            }
-        }
-        docs.append(n_json)
-el = helpers.bulk(es,docs)
+
+url = 'http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/'
+response = urllib.request.urlopen(url)
+api = response.read().decode("utf-8")
+jsos = json.loads(api)
+string = jsos.keys()
+dic = {}
+for i in string:
+    fileName =i
+string = jsos[fileName]['row']
+for i in string:
+    keys = i.items()
+    for j in keys:
+        dic[j[0]] = j[1]
+    docs.append(dic)
+for i in docs:
+    print(i)
+
+if(jsos[fileName]['RESULT']['MESSAGE']!='정상 처리되었습니다.'):
+    print('오류')
+
+
+#el = helpers.bulk(es,docs)
 print("END")
