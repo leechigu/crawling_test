@@ -30,11 +30,6 @@ for i in string:
     for j in keys:
         dic[j[0]] = j[1]
     docs.append(dic)
-for i in docs:
-    print(i)
-
-if(jsos[fileName]['RESULT']['MESSAGE']!='정상 처리되었습니다.'):
-    print('오류')
 
 
 #el = helpers.bulk(es,docs)
