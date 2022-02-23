@@ -128,18 +128,15 @@ for page in range(0,9):
             owner = driver.find_element(By.XPATH, owner_xpath)
         except NoSuchElementException :
             continue
-
-
-
         volume = toWon(volume.text,sol,busd)
         if(floorPrice.text!='--'):
             floorPrice = toWon(floorPrice.text,sol,busd)
-            write_ws.cell(count,3,floorPrice)
+            write_ws.cell(count,3,str(floorPrice))
         else:
-            write_ws.cell(count, 3, floorPrice.text)
+            write_ws.cell(count, 3, str(0))
         action.move_to_element(title).perform()
         write_ws.cell(count, 1, title.text)
-        write_ws.cell(count, 2, volume)
+        write_ws.cell(count, 2, str(volume))
         write_ws.cell(count, 4, sales.text)
         write_ws.cell(count, 5, properties.text)
         write_ws.cell(count, 6, owner.text)
@@ -154,4 +151,4 @@ for page in range(0,9):
         page_height = curr_height
     time.sleep(5)
 
-write_wb.save('CoinMarketTop900Data.xlsx')
+write_wb.save('900.xlsx')
