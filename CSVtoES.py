@@ -84,7 +84,6 @@ with open('API가져오기/seoul_500to1000.csv', 'r', encoding='UTF8') as se:
                     }
                     docs.append(doc)
                     id+=1
-
         elif(dataType=='json'):
             for j in range(0, 100000):
                 iStart = (j) * 1000 + 1
@@ -124,10 +123,7 @@ with open('API가져오기/seoul_500to1000.csv', 'r', encoding='UTF8') as se:
                 }
                 id+=1
                 docs.append(doc)
-
-
         helpers.bulk(es, docs)
-    print("END")
 
 
 
