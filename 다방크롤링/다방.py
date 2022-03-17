@@ -1,15 +1,8 @@
 # -*- coding: utf-8 -*-
 import time
-
-from openpyxl import Workbook
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 from selenium.common.exceptions import NoSuchElementException,TimeoutException,UnexpectedAlertPresentException
 
 
@@ -36,7 +29,7 @@ action = ActionChains(driver)
 
 time.sleep(4)
 
-count =
+count = 0
 
 for i  in range():
     try :
