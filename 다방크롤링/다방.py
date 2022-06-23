@@ -13,8 +13,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 def readExcel() :
-    wb = openpyxl.load_workbook('서울시 자치동 정보.xlsx')
-    dong = pd.read_excel('서울시 자치동 정보.xlsx', usecols=[0, 1, 2])
+    wb = openpyxl.load_workbook('서대문구 부터.xlsx')
+    dong = pd.read_excel('서대문구 부터.xlsx', usecols=[0, 1, 2])
 
     length = len(dong.자치구_명칭)
     gus = []
@@ -27,6 +27,25 @@ def readExcel() :
         gu_dongs.append(gus[i] + " " + dongs[i])
 
 def getRoomInfo(dong) :
+
+    if(dong=='송파구 장지동'):
+        return
+    elif(dong=='용산구 남영동'):
+        return
+    elif(dong=='종로구 청운효자동'):
+        return
+    elif(dong=='종로구 종로5가'):
+        return
+    elif(dong=='종로구 종로4가'):
+        return
+    elif (dong == '종로구 종로3가'):
+        return
+    elif (dong == '종로구 종로2가'):
+        return
+    elif (dong == '종로구 종로1가'):
+        return
+    elif (dong == '종로구 교남동'):
+        return
 
     workbook = Workbook()
     sheet = workbook.active
@@ -109,10 +128,6 @@ def getRoomInfo(dong) :
                     elif (line == 2):
                         roomDesc2 = des.text
                     line += 1
-                print(title)
-                print(roomType)
-                print(roomDesc1)
-                print(roomDesc2)
                 sheet.append([dong, title, roomType, roomDesc1, roomDesc2])
                 roomCnt += 1
             # 다음페이지로 이동
@@ -150,10 +165,6 @@ def getRoomInfo(dong) :
                 elif(line==2) :
                     roomDesc2 = des.text
                 line +=1
-            print(title)
-            print(roomType)
-            print(roomDesc1)
-            print(roomDesc2)
             sheet.append([dong, title, roomType, roomDesc1, roomDesc2])
             roomCnt += 1
 
